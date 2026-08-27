@@ -23,6 +23,9 @@ Improvement:
 - Export Excel.
 - Advanced search.
 - Better dashboard.
+- Import product secara massal dari Excel.
+- Import gambar product dari folder berdasarkan nama file atau SKU.
+- Validasi dan preview data sebelum proses import.
 
 ## Version 1.2
 Inventory Enhancement:
