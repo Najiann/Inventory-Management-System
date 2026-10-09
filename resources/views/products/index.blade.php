@@ -8,13 +8,24 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
-            <!-- Tombol Tambah -->
-            <div class="flex justify-end">
-                <a href="{{ route('products.create') }}" 
-                   class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition duration-150 ease-in-out">
-                    + Create New Product
-                </a>
-            </div>
+            <!-- Tombol Tambah (Khusus Admin) -->
+            @if (auth()->user()->role === 'admin')
+                <div class="flex justify-end">
+                    <a href="{{ route('products.create') }}" 
+                       class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition duration-150 ease-in-out">
+                        + Create New Product
+                    </a>
+                </div>
+            @if (session('success'))
+                <div class="p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                </div>
+            @endif
 
             <form action="{{ route('products.index') }}" method="GET" class="flex flex-col gap-3 sm:flex-row">
                 <label for="search" class="sr-only">Search products</label>
@@ -142,6 +153,7 @@
                                            class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300">
                                             View
                                         </a>
+                                        @if (auth()->user()->role === 'admin')
                                         <a href="{{ route('products.edit', $product->id) }}" 
                                            class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
                                             Edit
@@ -154,6 +166,7 @@
                                                 Delete
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
